@@ -33,7 +33,7 @@ class DatabaseDataSource(
         quoteDao.deleteAll()
     }
 
-    override suspend fun getAll(): LiveData<List<QuoteEntity>> {
+    override fun getAll(): LiveData<List<QuoteEntity>> {
         return quoteDao.getAll()
     }
 }
