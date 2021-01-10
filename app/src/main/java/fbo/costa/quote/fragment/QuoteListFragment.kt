@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import fbo.costa.quote.R
 import fbo.costa.quote.adapter.QuoteAdapter
 import fbo.costa.quote.data.AppDatabase
 import fbo.costa.quote.data.QuoteDao
@@ -50,8 +52,8 @@ class QuoteListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeViewModelEvents()
+        configureViewListeners()
     }
 
     private fun observeViewModelEvents() {
@@ -63,6 +65,12 @@ class QuoteListFragment : Fragment() {
                 setHasFixedSize(true)
                 adapter = quoteAdapter
             }
+        }
+    }
+
+    private fun configureViewListeners() {
+        binding.fabAdd.setOnClickListener {
+            findNavController().navigate(R.id.quoteFragment)
         }
     }
 }
