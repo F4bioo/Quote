@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import fbo.costa.quote.R
-import fbo.costa.quote.databinding.QuoteFragmentBinding
+import fbo.costa.quote.adapter.QuoteAdapter
+import fbo.costa.quote.data.QuoteEntity
 import fbo.costa.quote.databinding.QuoteListFragmentBinding
 import fbo.costa.quote.viewmodel.QuoteListViewModel
 
@@ -32,10 +31,27 @@ class QuoteListFragment : Fragment() {
         _binding = null
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(QuoteListViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val quoteAdapter = QuoteAdapter(
+            listOf(
+                QuoteEntity(
+                    1,
+                    "The way to get started is to quit talking and begin doing.",
+                    "-Walt Disney"
+                ),
+                QuoteEntity(
+                    2,
+                    "If life were predictable it would cease to be life, and be without flavor.",
+                    "-Eleanor Roosevelt"
+                )
+            )
+        )
+
+        binding.recyclerView.run {
+            setHasFixedSize(true)
+            adapter = quoteAdapter
+        }
+    }
 }

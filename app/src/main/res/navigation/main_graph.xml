@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/quoteFragment">
+    app:startDestination="@id/quoteListFragment">
 
     <fragment
         android:id="@+id/quoteFragment"
         android:name="fbo.costa.quote.fragment.QuoteFragment"
-        android:label="quote_fragment"
+        android:label="@string/quote_title"
         tools:layout="@layout/quote_fragment" />
+
+    <fragment
+        android:id="@+id/quoteListFragment"
+        android:name="fbo.costa.quote.fragment.QuoteListFragment"
+        android:label="@string/list_title"
+        tools:layout="@layout/quote_list_fragment" />
 
 </navigation>
