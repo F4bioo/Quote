@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import fbo.costa.quote.data.AppDatabase
 import fbo.costa.quote.data.QuoteDao
@@ -63,6 +64,9 @@ class QuoteFragment : Fragment() {
                     clearFields()
                     hideKeyboard()
                     requireView().requestFocus()
+
+                    // back last screen after insert data
+                    findNavController().popBackStack()
                 }
             }
             viewModel.messageEventData.observe(viewLifecycleOwner) { stringResId ->

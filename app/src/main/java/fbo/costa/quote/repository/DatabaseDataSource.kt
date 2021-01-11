@@ -1,6 +1,5 @@
 package fbo.costa.quote.repository
 
-import androidx.lifecycle.LiveData
 import fbo.costa.quote.data.QuoteDao
 import fbo.costa.quote.data.QuoteEntity
 
@@ -33,7 +32,7 @@ class DatabaseDataSource(
         quoteDao.deleteAll()
     }
 
-    override fun getAll(): LiveData<List<QuoteEntity>> {
+    override suspend fun getAll(): List<QuoteEntity> {
         return quoteDao.getAll()
     }
 }

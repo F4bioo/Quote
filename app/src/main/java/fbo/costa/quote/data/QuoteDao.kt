@@ -1,6 +1,5 @@
 package fbo.costa.quote.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -21,5 +20,5 @@ interface QuoteDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM quote")
-    fun getAll(): LiveData<List<QuoteEntity>>
+    suspend fun getAll(): List<QuoteEntity>
 }

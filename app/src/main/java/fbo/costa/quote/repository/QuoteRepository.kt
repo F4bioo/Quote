@@ -12,5 +12,5 @@ interface QuoteRepository {
 
     suspend fun deleteAll()
 
-    fun getAll(): LiveData<List<QuoteEntity>>
+    suspend fun getAll(): List<QuoteEntity>
 }

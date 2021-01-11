@@ -51,6 +51,12 @@ class QuoteListFragment : Fragment() {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        // after data insert get data from database
+        viewModel.getQuotes()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModelEvents()
@@ -58,7 +64,7 @@ class QuoteListFragment : Fragment() {
     }
 
     private fun observeViewModelEvents() {
-        viewModel.allQuoteEvent.observe(viewLifecycleOwner) { allQuotes ->
+        viewModel.allQuotesEvent.observe(viewLifecycleOwner) { allQuotes ->
             val quoteAdapter = QuoteAdapter(allQuotes)
             Log.v("<>", "${allQuotes.size}")
 
