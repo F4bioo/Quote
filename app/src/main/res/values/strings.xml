@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Quote</string>
+
+    <!-- QuoteFragment -->
+    <string name="quote_hint">Quote</string>
+    <string name="author_hint">Author</string>
+    <string name="add_button">Add</string>
+    <string name="quote_title">Quote</string>
+
+    <string name="quote_inserted_successfully">Quote was successfully inserted</string>
+    <string name="quote_error_to_insert">There was an error when inserting Quote</string>
+
+    <!-- QuoteList -->
+    <string name="list_title">Quote List</string>
+
 </resources>
