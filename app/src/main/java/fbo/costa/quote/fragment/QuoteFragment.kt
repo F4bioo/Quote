@@ -61,6 +61,7 @@ class QuoteFragment : Fragment() {
             binding.buttonAdd.text = getString(R.string.text_update)
             binding.inputQuote.setText(subscriber.quote)
             binding.inputAuthor.setText(subscriber.author)
+            binding.buttonDelete.visibility = View.VISIBLE
         }
 
         observeEvents()
@@ -70,17 +71,14 @@ class QuoteFragment : Fragment() {
     private fun observeEvents() {
         viewModel.quoteStateEventData.observe(viewLifecycleOwner) { quoteState ->
             when (quoteState) {
-                is QuoteViewModel.QuoteState.Inserted -> {
+                is QuoteViewModel.QuoteState.Inserted,
+                is QuoteViewModel.QuoteState.Updated,
+                is QuoteViewModel.QuoteState.Deleted -> {
                     clearFields()
                     hideKeyboard()
                     requireView().requestFocus()
 
                     // back last screen after insert data
-                    findNavController().popBackStack()
-                }
-                is QuoteViewModel.QuoteState.Updated -> {
-                    clearFields()
-                    hideKeyboard()
                     findNavController().popBackStack()
                 }
             }
@@ -108,6 +106,10 @@ class QuoteFragment : Fragment() {
             val email = binding.inputAuthor.text.toString()
 
             viewModel.insertOrUpdate(name, email, args.quoteEntityArgs?.id ?: 0)
+        }
+
+        binding.buttonDelete.setOnClickListener {
+            viewModel.delete(args.quoteEntityArgs?.id ?: 0)
         }
     }
 }

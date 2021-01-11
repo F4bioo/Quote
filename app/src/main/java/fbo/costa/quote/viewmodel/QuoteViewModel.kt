@@ -25,7 +25,7 @@ class QuoteViewModel(
         if (id > 0) {
             update(id, name, email)
         } else {
-            insertSubscriber(name, email)
+            insert(name, email)
         }
     }
 
@@ -35,28 +35,43 @@ class QuoteViewModel(
 
             _quoteStateEventData.value = QuoteState.Updated
             _messageEventData.value = R.string.quote_updated_successfully
-        } catch (ex: Exception) {
+        } catch (e: Exception) {
             _messageEventData.value = R.string.quote_error_to_insert
-            Log.e(TAG, ex.toString())
+            Log.e(TAG, e.toString())
         }
     }
 
-    private fun insertSubscriber(name: String, email: String) = viewModelScope.launch {
+    private fun insert(name: String, email: String) = viewModelScope.launch {
         try {
             val id = repository.insert(name, email)
             if (id > 0) {
                 _quoteStateEventData.value = QuoteState.Inserted
                 _messageEventData.value = R.string.quote_inserted_successfully
             }
-        } catch (ex: Exception) {
-            _messageEventData.value = R.string.quote_error_to_insert
-            Log.e(TAG, ex.toString())
+        } catch (e: Exception) {
+            _messageEventData.value = R.string.quote_error_to_update
+            Log.e(TAG, e.toString())
         }
+    }
+
+    fun delete(id: Long) = viewModelScope.launch {
+        try {
+            if (id > 0) {
+                repository.delete(id)
+                _quoteStateEventData.value = QuoteState.Deleted
+                _messageEventData.value = R.string.quote_deleted_successfully
+            }
+        } catch (e: Exception) {
+            _messageEventData.value = R.string.quote_error_to_delete
+            Log.e(TAG, e.toString())
+        }
+
     }
 
     sealed class QuoteState {
         object Inserted : QuoteState()
         object Updated : QuoteState()
+        object Deleted : QuoteState()
     }
 
     companion object {

@@ -6,11 +6,14 @@
     <string name="author_hint">Author</string>
     <string name="text_add">Add</string>
     <string name="text_update">Update</string>
+    <string name="text_delete">Delete</string>
     <string name="quote_title">Quote</string>
-
     <string name="quote_inserted_successfully">Quote was successfully inserted</string>
     <string name="quote_updated_successfully">Quote was successfully updated</string>
+    <string name="quote_deleted_successfully">Quote was successfully deleted</string>
     <string name="quote_error_to_insert">There was an error when inserting Quote</string>
+    <string name="quote_error_to_update">There was an error when updating Quote</string>
+    <string name="quote_error_to_delete">There was an error when deleting Quote</string>
 
     <!-- QuoteList -->
     <string name="list_title">Quote List</string>

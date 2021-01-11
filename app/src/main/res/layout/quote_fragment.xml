@@ -54,4 +54,17 @@
         app:layout_constraintStart_toStartOf="@id/input_layout_author"
         app:layout_constraintTop_toBottomOf="@id/input_layout_author" />
 
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/text_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/input_layout_author"
+        app:layout_constraintStart_toStartOf="@id/input_layout_author"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
