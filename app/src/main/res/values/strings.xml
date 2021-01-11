@@ -17,5 +17,6 @@
 
     <!-- QuoteList -->
     <string name="list_title">Quote List</string>
+    <string name="text_delete_all">Delete all</string>
 
 </resources>

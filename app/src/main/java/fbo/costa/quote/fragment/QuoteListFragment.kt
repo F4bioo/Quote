@@ -1,9 +1,7 @@
 package fbo.costa.quote.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -31,6 +29,7 @@ class QuoteListFragment : Fragment() {
                     AppDatabase.getInstance(requireContext()).quoteDao
 
                 val repository: QuoteRepository = DatabaseDataSource(quoteDao)
+                @Suppress("UNCHECKED_CAST")
                 return QuoteListViewModel(repository) as T
             }
         }
@@ -64,6 +63,9 @@ class QuoteListFragment : Fragment() {
 
     private fun observeViewModelEvents() {
         viewModel.allQuotesEvent.observe(viewLifecycleOwner) { allQuotes ->
+            // Show hide icon menu
+            setHasOptionsMenu(allQuotes.isNotEmpty())
+
             val quoteAdapter = QuoteAdapter(allQuotes) { quote ->
                 val directions = QuoteListFragmentDirections
                     .actionQuoteListFragmentToQuoteFragment(quote)
@@ -76,11 +78,26 @@ class QuoteListFragment : Fragment() {
                 adapter = quoteAdapter
             }
         }
+        viewModel.deleteAllQuotesEvent.observe(viewLifecycleOwner) {
+            viewModel.getQuotes()
+        }
     }
 
     private fun configureViewListeners() {
         binding.fabAdd.setOnClickListener {
             findNavController().navigateWithAnimations(R.id.action_quoteListFragment_to_quoteFragment)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.delete_subscribers) {
+            viewModel.deleteAllSubscribers()
+            true
+        } else super.onOptionsItemSelected(item)
     }
 }

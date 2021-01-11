@@ -35,6 +35,7 @@ class QuoteFragment : Fragment() {
                     AppDatabase.getInstance(requireContext()).quoteDao
 
                 val repository: QuoteRepository = DatabaseDataSource(quoteDao)
+                @Suppress("UNCHECKED_CAST")
                 return QuoteViewModel(repository) as T
             }
         }
