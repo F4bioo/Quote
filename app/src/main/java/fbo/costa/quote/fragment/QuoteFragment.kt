@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import fbo.costa.quote.R
 import fbo.costa.quote.data.AppDatabase
 import fbo.costa.quote.data.QuoteDao
 import fbo.costa.quote.databinding.QuoteFragmentBinding
@@ -20,6 +22,8 @@ import fbo.costa.quote.repository.QuoteRepository
 import fbo.costa.quote.viewmodel.QuoteViewModel
 
 class QuoteFragment : Fragment() {
+
+    private val args: QuoteFragmentArgs by navArgs()
 
     private var _binding: QuoteFragmentBinding? = null
     private val binding get() = _binding!!
@@ -53,6 +57,12 @@ class QuoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        args.quoteEntityArgs?.let { subscriber ->
+            binding.buttonAdd.text = getString(R.string.text_update)
+            binding.inputQuote.setText(subscriber.quote)
+            binding.inputAuthor.setText(subscriber.author)
+        }
+
         observeEvents()
         setListeners()
     }
@@ -66,6 +76,11 @@ class QuoteFragment : Fragment() {
                     requireView().requestFocus()
 
                     // back last screen after insert data
+                    findNavController().popBackStack()
+                }
+                is QuoteViewModel.QuoteState.Updated -> {
+                    clearFields()
+                    hideKeyboard()
                     findNavController().popBackStack()
                 }
             }
@@ -92,7 +107,7 @@ class QuoteFragment : Fragment() {
             val name = binding.inputQuote.text.toString()
             val email = binding.inputAuthor.text.toString()
 
-            viewModel.addQuote(name, email)
+            viewModel.insertOrUpdate(name, email, args.quoteEntityArgs?.id ?: 0)
         }
     }
 }

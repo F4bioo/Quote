@@ -1,7 +1,6 @@
 package fbo.costa.quote.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import fbo.costa.quote.extension.navigateWithAnimations
 import androidx.navigation.fragment.findNavController
 import fbo.costa.quote.R
 import fbo.costa.quote.adapter.QuoteAdapter
 import fbo.costa.quote.data.AppDatabase
 import fbo.costa.quote.data.QuoteDao
 import fbo.costa.quote.databinding.QuoteListFragmentBinding
+import fbo.costa.quote.extension.navigateWithAnimations
 import fbo.costa.quote.repository.DatabaseDataSource
 import fbo.costa.quote.repository.QuoteRepository
 import fbo.costa.quote.viewmodel.QuoteListViewModel
@@ -65,8 +64,12 @@ class QuoteListFragment : Fragment() {
 
     private fun observeViewModelEvents() {
         viewModel.allQuotesEvent.observe(viewLifecycleOwner) { allQuotes ->
-            val quoteAdapter = QuoteAdapter(allQuotes)
-            Log.v("<>", "${allQuotes.size}")
+            val quoteAdapter = QuoteAdapter(allQuotes) { quote ->
+                val directions = QuoteListFragmentDirections
+                    .actionQuoteListFragmentToQuoteFragment(quote)
+
+                findNavController().navigateWithAnimations(directions)
+            }
 
             with(binding.recyclerView) {
                 setHasFixedSize(true)
@@ -77,7 +80,7 @@ class QuoteListFragment : Fragment() {
 
     private fun configureViewListeners() {
         binding.fabAdd.setOnClickListener {
-            findNavController().navigateWithAnimations(R.id.quoteFragment)
+            findNavController().navigateWithAnimations(R.id.action_quoteListFragment_to_quoteFragment)
         }
     }
 }
