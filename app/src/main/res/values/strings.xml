@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Quote</string>
+
+    <!-- QuoteFragment -->
+    <string name="quote_hint">Quote</string>
+    <string name="author_hint">Author</string>
+    <string name="add_button">Add</string>
+    <string name="quote_title">Quote</string>
+
 </resources>
