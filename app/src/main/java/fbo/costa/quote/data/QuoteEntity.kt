@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "quote")
-class QuoteEntity(
+data class QuoteEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val quote: String,
