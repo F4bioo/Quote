@@ -10,4 +10,4 @@
 
 > This example project is separated by branches
 
-<img src="https://github.com/F4bioo/Quote/blob/master/screen_capture.png" width="30%"></img>
+<img src="screen_capture.png" width="30%"></img>
